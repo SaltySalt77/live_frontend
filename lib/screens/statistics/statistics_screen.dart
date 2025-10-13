@@ -72,31 +72,9 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen>
                 controller: _tabController,
                 children: [
                   // 클로버 미션 탭 내용
-                  _buildStatisticsContent(
-                    weeklyData: [
-                      5,
-                      10,
-                      15,
-                      20,
-                      25,
-                      30,
-                      35,
-                    ], // TODO: Replace with actual data
-                    tabIndex: 0,
-                  ),
+                  _buildStatisticsContent(tabIndex: 0),
                   // 마이 미션 탭 내용
-                  _buildStatisticsContent(
-                    weeklyData: [
-                      3,
-                      8,
-                      12,
-                      18,
-                      22,
-                      28,
-                      32,
-                    ], // TODO: Replace with actual data
-                    tabIndex: 1,
-                  ),
+                  _buildStatisticsContent(tabIndex: 1),
                 ],
               ),
             ),
@@ -107,7 +85,6 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen>
   }
 
   Widget _buildStatisticsContent({
-    required List<double> weeklyData,
     required int tabIndex, // 0: 클로버 미션, 1: 마이 미션
   }) {
     return ListView(

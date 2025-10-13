@@ -29,10 +29,7 @@ class MissionCompletionGauge extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final monthlyRateAsync = ref.watch(
       monthlyCompletionRateProvider(
-        MonthlyCompletionRatePayload(
-          yearMonth: yearMonth,
-          missionType: missionType,
-        ),
+        StatisticsApiPayload(yearMonth: yearMonth, missionType: missionType),
       ),
     );
 

@@ -3,19 +3,16 @@ import 'package:live_frontend/core/controllers/statistics_controller.dart';
 import 'package:live_frontend/models/my_mission_model.dart';
 import 'package:live_frontend/models/statistics_model.dart';
 
-class MonthlyCompletionRatePayload {
+class StatisticsApiPayload {
   final String yearMonth;
   final MissionType missionType;
 
-  MonthlyCompletionRatePayload({
-    required this.yearMonth,
-    required this.missionType,
-  });
+  StatisticsApiPayload({required this.yearMonth, required this.missionType});
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is MonthlyCompletionRatePayload &&
+      other is StatisticsApiPayload &&
           runtimeType == other.runtimeType &&
           yearMonth == other.yearMonth &&
           missionType == other.missionType;
@@ -25,11 +22,25 @@ class MonthlyCompletionRatePayload {
 }
 
 final monthlyCompletionRateProvider =
-    FutureProvider.family<
-      MonthlyCompletionRateModel?,
-      MonthlyCompletionRatePayload
-    >((ref, payload) {
+    FutureProvider.family<MonthlyCompletionRateModel?, StatisticsApiPayload>((
+      ref,
+      payload,
+    ) {
       final controller = ref.read(statisticsControllerProvider);
       return controller.fetchMonthlyCompletionRate(
-          payload.yearMonth, payload.missionType);
+        payload.yearMonth,
+        payload.missionType,
+      );
+    });
+
+final weeklyCompletionRatesProvider =
+    FutureProvider.family<WeeklyMissionSummaryModel?, StatisticsApiPayload>((
+      ref,
+      payload,
+    ) {
+      final controller = ref.read(statisticsControllerProvider);
+      return controller.fetchWeeklyMissionSummary(
+        payload.yearMonth,
+        payload.missionType,
+      );
     });
