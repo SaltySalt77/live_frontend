@@ -46,7 +46,7 @@ class _WeeklyReportScreenState extends State<WeeklyReportScreen> {
             children: [
               WeeklyBarChart(
                 missionType: widget.missionType,
-                currentAnchor: _anchor.format(pattern: 'yyyy-MM'),
+                currentAnchor: _anchor.format(pattern: 'yyyy-MM-dd'),
                 selectedIndex: _selectedIndex,
               ),
               WeekNavigator(

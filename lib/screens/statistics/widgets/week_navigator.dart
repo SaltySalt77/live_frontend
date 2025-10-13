@@ -7,11 +7,12 @@ import 'package:live_frontend/theme/app_text_styles.dart';
 /// 주간 네비게이터: "7월 둘째 주" 형태로 표시하고 좌/우로 주 단위 이동
 class WeekNavigator extends StatelessWidget {
   final Jiffy currentAnchor;
+  final Jiffy _today = Jiffy.now().startOf(Unit.week); // 이번 주 월요일
 
   /// 주가 변경될 때 호출되는 콜백 (새로운 주의 시작 날짜)
   final void Function(Jiffy weekStart) onChanged;
 
-  const WeekNavigator({
+  WeekNavigator({
     super.key,
     required this.currentAnchor,
     required this.onChanged,
@@ -87,11 +88,13 @@ class WeekNavigator extends StatelessWidget {
             height: 40.w,
             child: IconButton(
               visualDensity: VisualDensity.compact,
-              onPressed: () {
-                final newAnchor = currentAnchor.add(days: 7);
-                final start = newAnchor.startOf(Unit.week);
-                onChanged.call(start);
-              },
+              onPressed: currentAnchor.isSame(_today)
+                  ? null
+                  : () {
+                      final newAnchor = currentAnchor.add(days: 7);
+                      final start = newAnchor.startOf(Unit.week);
+                      onChanged.call(start);
+                    },
               icon: Icon(
                 Icons.chevron_right,
                 size: 24,
