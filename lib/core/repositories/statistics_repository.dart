@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:live_frontend/models/common_api_response_model.dart';
+import 'package:live_frontend/models/my_mission_model.dart';
 import 'package:live_frontend/models/statistics_model.dart';
 import 'package:live_frontend/providers/dio_provider.dart';
 
@@ -51,6 +52,30 @@ class StatisticsRepository {
       return apiResponse.data;
     } catch (e) {
       debugPrint('Failed to fetch monthly completion rate: $e');
+      return null;
+    }
+  }
+
+  Future<WeeklyMissionSummaryModel?> fetchWeeklyMissionSummary(
+    String date,
+    MissionType missionType,
+  ) async {
+    try {
+      final endpoint = missionType == MissionType.clover
+          ? '/api/v1/analysis/clover/weekly'
+          : '/api/v1/analysis/my/weekly';
+      final response = await _dio.get(
+        endpoint,
+        queryParameters: {'date': date},
+      );
+      final apiResponse = ApiResponseModel<WeeklyMissionSummaryModel>.fromJson(
+        response.data,
+        (json) =>
+            WeeklyMissionSummaryModel.fromJson(json as Map<String, dynamic>),
+      );
+      return apiResponse.data;
+    } catch (e) {
+      debugPrint('Failed to fetch weekly mission summary: $e');
       return null;
     }
   }

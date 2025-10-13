@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:live_frontend/core/repositories/statistics_repository.dart';
+import 'package:live_frontend/models/my_mission_model.dart';
 import 'package:live_frontend/models/statistics_model.dart';
 
 final statisticsControllerProvider = Provider(
@@ -26,6 +27,17 @@ class StatisticsController {
   ) async {
     try {
       return await _repository.fetchMonthlyMyRate(yearMonth);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<WeeklyMissionSummaryModel?> fetchWeeklyMissionSummary(
+    String date,
+    MissionType missionType,
+  ) async {
+    try {
+      return await _repository.fetchWeeklyMissionSummary(date, missionType);
     } catch (e) {
       return null;
     }
