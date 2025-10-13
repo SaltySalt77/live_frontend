@@ -16,12 +16,17 @@ class StatisticsRepository {
 
   StatisticsRepository(this._dio);
 
-  Future<MonthlyCompletionRateModel?> fetchMonthlyCloverRate(
+  Future<MonthlyCompletionRateModel?> fetchMonthlyCompletionRate(
     String yearMonth,
+    MissionType missionType,
   ) async {
     try {
+      final endpoint = missionType == MissionType.clover
+          ? '/api/v1/analysis/clover/participation'
+          : '/api/v1/analysis/my/participation';
+
       final response = await _dio.get(
-        '/api/v1/analysis/clover/participation',
+        endpoint,
         queryParameters: {'yearMonth': yearMonth},
       );
       final apiResponse = ApiResponseModel<MonthlyCompletionRateModel>.fromJson(
@@ -30,28 +35,6 @@ class StatisticsRepository {
             MonthlyCompletionRateModel.fromJson(json as Map<String, dynamic>),
       );
 
-      // 테스트용 10초 대기
-      await Future.delayed(const Duration(seconds: 10));
-      return apiResponse.data;
-    } catch (e) {
-      debugPrint('Failed to fetch monthly completion rate: $e');
-      return null;
-    }
-  }
-
-  Future<MonthlyCompletionRateModel?> fetchMonthlyMyRate(
-    String yearMonth,
-  ) async {
-    try {
-      final response = await _dio.get(
-        '/api/v1/analysis/my/participation',
-        queryParameters: {'yearMonth': yearMonth},
-      );
-      final apiResponse = ApiResponseModel<MonthlyCompletionRateModel>.fromJson(
-        response.data,
-        (json) =>
-            MonthlyCompletionRateModel.fromJson(json as Map<String, dynamic>),
-      );
       return apiResponse.data;
     } catch (e) {
       debugPrint('Failed to fetch monthly completion rate: $e');

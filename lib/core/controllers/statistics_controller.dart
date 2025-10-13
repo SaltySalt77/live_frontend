@@ -12,21 +12,12 @@ class StatisticsController {
 
   StatisticsController(this._repository);
 
-  Future<MonthlyCompletionRateModel?> fetchMonthlyCloverRate(
+  Future<MonthlyCompletionRateModel?> fetchMonthlyCompletionRate(
     String yearMonth,
+    MissionType missionType,
   ) async {
     try {
-      return await _repository.fetchMonthlyCloverRate(yearMonth);
-    } catch (e) {
-      return null;
-    }
-  }
-
-  Future<MonthlyCompletionRateModel?> fetchMonthlyMyRate(
-    String yearMonth,
-  ) async {
-    try {
-      return await _repository.fetchMonthlyMyRate(yearMonth);
+      return await _repository.fetchMonthlyCompletionRate(yearMonth, missionType);
     } catch (e) {
       return null;
     }

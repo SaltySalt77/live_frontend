@@ -30,9 +30,6 @@ final monthlyCompletionRateProvider =
       MonthlyCompletionRatePayload
     >((ref, payload) {
       final controller = ref.read(statisticsControllerProvider);
-      if (payload.missionType == MissionType.clover) {
-        return controller.fetchMonthlyCloverRate(payload.yearMonth);
-      } else {
-        return controller.fetchMonthlyMyRate(payload.yearMonth);
-      }
+      return controller.fetchMonthlyCompletionRate(
+          payload.yearMonth, payload.missionType);
     });
