@@ -29,6 +29,9 @@ class StatisticsRepository {
         (json) =>
             MonthlyCompletionRateModel.fromJson(json as Map<String, dynamic>),
       );
+
+      // 테스트용 10초 대기
+      await Future.delayed(const Duration(seconds: 10));
       return apiResponse.data;
     } catch (e) {
       debugPrint('Failed to fetch monthly completion rate: $e');
@@ -73,6 +76,7 @@ class StatisticsRepository {
         (json) =>
             WeeklyMissionSummaryModel.fromJson(json as Map<String, dynamic>),
       );
+
       return apiResponse.data;
     } catch (e) {
       debugPrint('Failed to fetch weekly mission summary: $e');
