@@ -51,7 +51,7 @@ class _WeeklyReportScreenState extends State<WeeklyReportScreen> {
               ),
               WeekNavigator(
                 currentAnchor: _anchor,
-                onChanged: (start, end) {
+                onChanged: (start) {
                   setState(() {
                     _anchor = start;
                     _selectedIndex = 0; // reset selection to Monday of new week

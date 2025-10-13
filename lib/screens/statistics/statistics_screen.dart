@@ -111,7 +111,7 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen>
               ),
               WeekNavigator(
                 currentAnchor: Jiffy.parse(_currentAnchor),
-                onChanged: (start, end) {
+                onChanged: (start) {
                   setState(() {
                     _currentAnchor = start
                         .startOf(Unit.week)
