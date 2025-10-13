@@ -1,32 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiffy/jiffy.dart';
+import 'package:live_frontend/models/my_mission_model.dart';
 import 'package:live_frontend/theme/app_colors.dart';
 import 'package:live_frontend/theme/app_text_styles.dart';
+import 'package:go_router/go_router.dart';
 
 class WeeklyBarChart extends StatelessWidget {
-  final List<double> weeklyData;
   final int? selectedIndex;
-  final void Function(int dayIndex)? onBarTapped;
-  final Color? selectedBarColor;
-  final Color? unselectedBarColor;
+  final MissionType missionType;
+  final String currentAnchor;
 
   const WeeklyBarChart({
     super.key,
-    required this.weeklyData,
     this.selectedIndex,
-    this.onBarTapped,
-    this.selectedBarColor,
-    this.unselectedBarColor,
+    required this.missionType,
+    required this.currentAnchor,
   });
 
   @override
   Widget build(BuildContext context) {
-    final maxVal =
-        (weeklyData.isEmpty
-            ? 0.0
-            : weeklyData.reduce((a, b) => a > b ? a : b)) +
-        5;
+    void onBarTapped(int index) {
+      final refDate = Jiffy.parse(
+        currentAnchor,
+      ).startOf(Unit.week).add(days: index);
+      context.pushNamed(
+        'weekly_report',
+        queryParameters: {
+          'referenceDate': refDate.format(pattern: 'yyyy-MM-dd'),
+          'missionType': missionType.name,
+        },
+      );
+    }
+
+    // final maxVal =
+    //     (weeklyData.isEmpty
+    //         ? 0.0
+    //         : weeklyData.reduce((a, b) => a > b ? a : b)) +
+    //     5;
+    final maxVal = 20.0;
 
     return Container(
       height: 190.h,
@@ -99,8 +112,8 @@ class WeeklyBarChart extends StatelessWidget {
                 BarChartRodData(
                   toY: value,
                   color: selectedIndex == index
-                      ? (selectedBarColor ?? AppColors.greenNormal)
-                      : (unselectedBarColor ?? AppColors.greenLightActive),
+                      ? AppColors.greenNormal
+                      : AppColors.greenLightActive,
                   width: 24.w,
                   borderRadius: BorderRadius.circular(4.r),
                 ),
@@ -112,7 +125,7 @@ class WeeklyBarChart extends StatelessWidget {
             touchCallback: (event, response) {
               if (event is FlTapUpEvent && response?.spot != null) {
                 final index = response!.spot!.touchedBarGroupIndex;
-                onBarTapped?.call(index);
+                onBarTapped.call(index);
               }
             },
           ),

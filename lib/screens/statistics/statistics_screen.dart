@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:live_frontend/models/my_mission_model.dart';
 import 'package:live_frontend/screens/statistics/widgets/mission_completion_gauge.dart';
@@ -128,21 +127,10 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen>
                 ),
               ),
               WeeklyBarChart(
-                weeklyData: weeklyData,
-                onBarTapped: (index) {
-                  final refDate = Jiffy.parse(
-                    _currentAnchor,
-                  ).startOf(Unit.week).add(days: index);
-                  context.pushNamed(
-                    'weekly_report',
-                    queryParameters: {
-                      'referenceDate': refDate.format(pattern: 'yyyy-MM-dd'),
-                      'missionType': tabIndex == 0
-                          ? MissionType.clover.toString().split('.').last
-                          : MissionType.my.toString().split('.').last,
-                    },
-                  );
-                },
+                missionType: tabIndex == 0
+                    ? MissionType.clover
+                    : MissionType.my,
+                currentAnchor: _currentAnchor,
               ),
               WeekNavigator(
                 currentAnchor: Jiffy.parse(_currentAnchor),
