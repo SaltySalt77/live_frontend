@@ -56,3 +56,37 @@ Map<String, dynamic> _$DailyMissionSummaryToJson(
   'dayOfWeek': const DayOfWeekConverter().toJson(instance.dayOfWeek),
   'missionCount': instance.missionCount,
 };
+
+MonthlyGrowthModel _$MonthlyGrowthModelFromJson(Map<String, dynamic> json) =>
+    MonthlyGrowthModel(
+      previousMonth: (json['previousMonth'] as num).toInt(),
+      currentMonth: (json['currentMonth'] as num).toInt(),
+      growthSummary: (json['growthSummary'] as List<dynamic>)
+          .map((e) => GrowthSummary.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$MonthlyGrowthModelToJson(MonthlyGrowthModel instance) =>
+    <String, dynamic>{
+      'previousMonth': instance.previousMonth,
+      'currentMonth': instance.currentMonth,
+      'growthSummary': instance.growthSummary,
+    };
+
+GrowthSummary _$GrowthSummaryFromJson(Map<String, dynamic> json) =>
+    GrowthSummary(
+      rank: (json['rank'] as num).toInt(),
+      categoryName: json['categoryName'] as String,
+      previousMonthCount: (json['previousMonthCount'] as num).toInt(),
+      currentMonthCount: (json['currentMonthCount'] as num).toInt(),
+      growthPercentage: (json['growthPercentage'] as num).toDouble(),
+    );
+
+Map<String, dynamic> _$GrowthSummaryToJson(GrowthSummary instance) =>
+    <String, dynamic>{
+      'rank': instance.rank,
+      'categoryName': instance.categoryName,
+      'previousMonthCount': instance.previousMonthCount,
+      'currentMonthCount': instance.currentMonthCount,
+      'growthPercentage': instance.growthPercentage,
+    };

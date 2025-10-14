@@ -86,3 +86,38 @@ class DailyMissionSummary {
 
   int get dayOfWeekValue => dayOfWeek.value;
 }
+
+@JsonSerializable()
+class MonthlyGrowthModel {
+  final int previousMonth;
+  final int currentMonth;
+  final List<GrowthSummary> growthSummary;
+  MonthlyGrowthModel({
+    required this.previousMonth,
+    required this.currentMonth,
+    required this.growthSummary,
+  });
+  factory MonthlyGrowthModel.fromJson(Map<String, dynamic> json) =>
+      _$MonthlyGrowthModelFromJson(json);
+  Map<String, dynamic> toJson() => _$MonthlyGrowthModelToJson(this);
+}
+
+@JsonSerializable()
+class GrowthSummary {
+  final int rank;
+  final String categoryName;
+  final int previousMonthCount;
+  final int currentMonthCount;
+  final double growthPercentage;
+
+  GrowthSummary({
+    required this.rank,
+    required this.categoryName,
+    required this.previousMonthCount,
+    required this.currentMonthCount,
+    required this.growthPercentage,
+  });
+  factory GrowthSummary.fromJson(Map<String, dynamic> json) =>
+      _$GrowthSummaryFromJson(json);
+  Map<String, dynamic> toJson() => _$GrowthSummaryToJson(this);
+}
