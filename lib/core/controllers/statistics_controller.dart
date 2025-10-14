@@ -17,7 +17,10 @@ class StatisticsController {
     MissionType missionType,
   ) async {
     try {
-      return await _repository.fetchMonthlyCompletionRate(yearMonth, missionType);
+      return await _repository.fetchMonthlyCompletionRate(
+        yearMonth,
+        missionType,
+      );
     } catch (e) {
       return null;
     }
@@ -29,6 +32,14 @@ class StatisticsController {
   ) async {
     try {
       return await _repository.fetchWeeklyMissionSummary(date, missionType);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<MonthlyGrowthModel?> fetchMonthlyGrowth(String yearMonth) async {
+    try {
+      return await _repository.fetchMonthlyGrowth(yearMonth);
     } catch (e) {
       return null;
     }

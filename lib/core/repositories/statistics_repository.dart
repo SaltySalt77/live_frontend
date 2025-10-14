@@ -66,4 +66,22 @@ class StatisticsRepository {
       return null;
     }
   }
+
+  Future<MonthlyGrowthModel?> fetchMonthlyGrowth(String yearMonth) async {
+    try {
+      final response = await _dio.get(
+        '/api/v1/analysis/clover/growth',
+        // queryParameters: {'yearMonth': yearMonth},  아직 추가 안됨
+      );
+      final apiResponse = ApiResponseModel<MonthlyGrowthModel>.fromJson(
+        response.data,
+        (json) => MonthlyGrowthModel.fromJson(json as Map<String, dynamic>),
+      );
+
+      return apiResponse.data;
+    } catch (e) {
+      debugPrint('Failed to fetch monthly growth: $e');
+      return null;
+    }
+  }
 }

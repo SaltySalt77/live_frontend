@@ -76,7 +76,10 @@ Map<String, dynamic> _$MonthlyGrowthModelToJson(MonthlyGrowthModel instance) =>
 GrowthSummary _$GrowthSummaryFromJson(Map<String, dynamic> json) =>
     GrowthSummary(
       rank: (json['rank'] as num).toInt(),
-      categoryName: json['categoryName'] as String,
+      categoryName: $enumDecode(
+        _$CloverMissionCategoryEnumMap,
+        json['categoryName'],
+      ),
       previousMonthCount: (json['previousMonthCount'] as num).toInt(),
       currentMonthCount: (json['currentMonthCount'] as num).toInt(),
       growthPercentage: (json['growthPercentage'] as num).toDouble(),
@@ -85,8 +88,16 @@ GrowthSummary _$GrowthSummaryFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$GrowthSummaryToJson(GrowthSummary instance) =>
     <String, dynamic>{
       'rank': instance.rank,
-      'categoryName': instance.categoryName,
+      'categoryName': _$CloverMissionCategoryEnumMap[instance.categoryName]!,
       'previousMonthCount': instance.previousMonthCount,
       'currentMonthCount': instance.currentMonthCount,
       'growthPercentage': instance.growthPercentage,
     };
+
+const _$CloverMissionCategoryEnumMap = {
+  CloverMissionCategory.relationship: 'RELATIONSHIP',
+  CloverMissionCategory.health: 'HEALTH',
+  CloverMissionCategory.work: 'WORK',
+  CloverMissionCategory.hobby: 'HOBBY',
+  CloverMissionCategory.study: 'STUDY',
+};

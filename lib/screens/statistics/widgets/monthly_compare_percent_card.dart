@@ -16,7 +16,6 @@ class MonthlyComparePercentCard extends StatelessWidget {
   final int previousValue; // 지난달 값
   final Jiffy? referenceMonth; // 기준 월(미지정 시 now)
 
-  // 스타일 커스터마이즈
   const MonthlyComparePercentCard({
     super.key,
     required this.title,

@@ -44,3 +44,9 @@ final weeklyCompletionRatesProvider =
         payload.missionType,
       );
     });
+
+final monthlyGrowthProvider =
+    FutureProvider.family<MonthlyGrowthModel?, String>((ref, yearMonth) {
+      final controller = ref.read(statisticsControllerProvider);
+      return controller.fetchMonthlyGrowth(yearMonth);
+    });

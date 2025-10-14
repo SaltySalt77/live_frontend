@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:live_frontend/models/clover_mission_model.dart';
 
 part 'statistics_model.g.dart';
 
@@ -105,7 +106,7 @@ class MonthlyGrowthModel {
 @JsonSerializable()
 class GrowthSummary {
   final int rank;
-  final String categoryName;
+  final CloverMissionCategory categoryName;
   final int previousMonthCount;
   final int currentMonthCount;
   final double growthPercentage;
