@@ -61,12 +61,12 @@ class _PostBody extends StatelessWidget {
     final paragraphs = content.split('\n\n').where((e) => e.trim().isNotEmpty);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: paragraphs
-          .map((p) => Padding(
-                padding: EdgeInsets.only(bottom: 12.h),
-                child: Text(p, style: AppTextStyles.bodyRegular(context)),
-              ))
-          .toList(),
+      children: paragraphs.map(
+        (p) => Padding(
+          padding: EdgeInsets.only(bottom: 12.h),
+          child: Text(p, style: AppTextStyles.bodyRegular(context)),
+        ),
+      ).toList(),
     );
   }
 }
