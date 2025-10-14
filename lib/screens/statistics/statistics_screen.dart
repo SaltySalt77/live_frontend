@@ -120,9 +120,7 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen>
                 },
               ),
               if (tabIndex == 0)
-                MonthlyCompareList(
-                  referenceDate: Jiffy.parse(_currentAnchor).dateTime,
-                ),
+                MonthlyCompareList(referenceDate: Jiffy.parse(_currentAnchor)),
             ],
           ),
         ),

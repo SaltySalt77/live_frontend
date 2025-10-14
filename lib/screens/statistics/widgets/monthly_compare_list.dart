@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:live_frontend/models/clover_mission_model.dart';
 import 'package:live_frontend/screens/statistics/widgets/monthly_compare_percent_card.dart';
 import 'package:live_frontend/theme/app_colors.dart';
 import 'package:live_frontend/theme/app_text_styles.dart';
 
 class MonthlyCompareList extends StatelessWidget {
-  final DateTime referenceDate;
+  final Jiffy referenceDate;
 
-  /// referenceDate: the date used to determine which month to display (year/month).
-  /// If null, defaults to DateTime.now().
-  MonthlyCompareList({super.key, DateTime? referenceDate})
-    : referenceDate = referenceDate ?? DateTime.now();
+  MonthlyCompareList({super.key, Jiffy? referenceDate})
+    : referenceDate = referenceDate ?? Jiffy.now();
 
   @override
   Widget build(BuildContext context) {
